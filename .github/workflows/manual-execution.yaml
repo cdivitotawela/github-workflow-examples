@@ -1,0 +1,21 @@
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Commit hash or branch name'
+        required: true
+        default: 'main'
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.inputs.branch }}
+
+      - run: echo "Running Manual trigger"
+      
+      - run: git status
