@@ -9,7 +9,7 @@ on:
 jobs:
   docker:
     runs-on: ubuntu-latest
-    # if: ${{ contains(['cdivitotawela'],github.actor) }}
+    if: ${{ contains(['cdivitotawela'], github.actor) }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
