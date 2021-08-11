@@ -1,0 +1,15 @@
+on:
+  workflow_dispatch:
+
+jobs:
+  artifact:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Create Artifact
+      run: echo "$(date '+%s') - Artifact test" > "artifact-$(date '+%s').log"
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: my-artifact
+        path: ./artifact*
