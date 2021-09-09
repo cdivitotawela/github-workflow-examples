@@ -4,20 +4,69 @@ name: Multiple Jobs Dependency
 on:
   workflow_dispatch:
 
+# Each job runs on its own container. So anything build on a job is not available for the subequent jobs
 jobs:
-  uat:
-    name: UAT
+  build:
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
-    - name: Deploy to UAT
+    - name: Compile
+      run: echo "Compile application"
+
+  lint:
+    name: Lint
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Linting
+      run: echo "Lint checks"
+
+  security:
+    name: Security
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Security Scanning
+      run: echo "Security scanning"
+
+  unit-tests:
+    name: Unit Tests
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Unit Testing
+      run: echo "Running unit tests"
+
+  deploy-uat:
+    name: Deploy UAT
+    needs:
+    - lint
+    - security
+    - unit-tests
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Deploy
       run: echo "Deploying to UAT"
 
-  prd:
-    name: PRD
-    needs: uat
+  e2e:
+    name: E2E
+    needs: deploy-uat
     runs-on: ubuntu-latest
 
     steps:
-    - name: Deploy to PRD
-      run: echo "Deploying to PRD"
+    - name: End-to-End Testing
+      run: echo "Running E2E tests"
+
+  deploy-prd:
+    name: Deploy PRD
+    needs: e2e
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Deploy PRD"
+      run:  echo "Deploying to PRD"     
