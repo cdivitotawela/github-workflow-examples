@@ -1,0 +1,20 @@
+on:
+  workflow_dispatch:
+
+jobs:
+  uat:
+    name: uat
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Deploy to UAT
+      run: echo "Deploying to UAT"
+
+  prd:
+    name: prd
+    needs: uat
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Deploy to PRD
+      run: echo "Deploying to PRD"
