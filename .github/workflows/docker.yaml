@@ -1,7 +1,9 @@
 on:
   push:
     branches:
-      - main
+    # Using arbitary branch name to avoid running whenever code is pushed
+      # - main
+      - docker
   pull_request:
   release:
     types:
