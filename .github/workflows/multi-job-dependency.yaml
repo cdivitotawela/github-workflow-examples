@@ -1,9 +1,12 @@
+# This is the job name diplayed on actions tab
+name: Multiple Jobs Dependency
+
 on:
   workflow_dispatch:
 
 jobs:
   uat:
-    name: uat
+    name: UAT
     runs-on: ubuntu-latest
 
     steps:
@@ -11,7 +14,7 @@ jobs:
       run: echo "Deploying to UAT"
 
   prd:
-    name: prd
+    name: PRD
     needs: uat
     runs-on: ubuntu-latest
 
