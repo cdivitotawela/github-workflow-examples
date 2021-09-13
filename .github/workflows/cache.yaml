@@ -8,16 +8,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Create file
+      run: echo "Timestamp $(date '+%s')" | tee timestamp.txt
+
     - name: Cache
       uses: actions/cache@v2
       env:
         cache-name: cache-node-modules
       with:
         path: ./timestamp.txt
-        key: file
-
-    - name: Create file
-      run: echo "Timestamp $(date '+%s')" | tee timestamp.txt
+        key: file-${{ github.run_number }}
 
 
   use:
@@ -34,7 +34,7 @@ jobs:
         cache-name: cache-node-modules
       with:
         path: ./timestamp.txt
-        key: file
+        key: file-${{ github.run_number }}
 
     - name: List File After Cache
       run: ls -l
