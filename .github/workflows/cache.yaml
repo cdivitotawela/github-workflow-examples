@@ -19,4 +19,17 @@ jobs:
     - name: Create file
       run: echo "Timestamp $(date '+%s')" | tee timestamp.txt
 
+  use:
+    runs-on: ubuntu-latest
     
+    steps:
+    - name: Cache
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: ./timestamp.txt
+        key: file
+    
+    - name: View File
+      run: cat timestamp.txt
