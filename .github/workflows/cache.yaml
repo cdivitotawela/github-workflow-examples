@@ -1,4 +1,5 @@
-name: cache
+# Example use of cache action
+name: using-cache
 
 on:
   workflow_dispatch:
@@ -11,6 +12,7 @@ jobs:
     - name: Create file
       run: echo "Timestamp $(date '+%s')" | tee timestamp.txt
 
+    # Here cache the files. Key is unique for the run number. Run number same for all jobs in the run
     - name: Cache
       uses: actions/cache@v2
       env:
@@ -28,6 +30,7 @@ jobs:
     - name: List File Before Cache
       run: ls -l
     
+    # Both key and path must match to restore the files
     - name: Cache
       uses: actions/cache@v2
       env:

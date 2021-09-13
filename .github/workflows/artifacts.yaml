@@ -1,3 +1,5 @@
+name: using-artifacts
+
 on:
   workflow_dispatch:
 

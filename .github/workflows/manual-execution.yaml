@@ -1,3 +1,5 @@
+name: manual-execution
+
 on:
   workflow_dispatch:
     inputs:

@@ -1,5 +1,5 @@
 # This is the job name diplayed on actions tab
-name: Multiple Jobs Dependency
+name: job-dependency
 
 on:
   workflow_dispatch:
