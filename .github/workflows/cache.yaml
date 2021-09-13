@@ -7,6 +7,7 @@ jobs:
   create:
     runs-on: ubuntu-latest
 
+    steps:
     - name: Cache
       uses: actions/cache@v2
       env:
@@ -15,7 +16,6 @@ jobs:
         path: ./timestamp.txt
         key: abc
 
-    steps:
     - name: Create file
       run: echo "Timestamp $(date '+%s')" | tee timestamp.txt
 
