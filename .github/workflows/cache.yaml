@@ -9,18 +9,19 @@ jobs:
 
     steps:
     - name: Create file
-      run: echo "Timestamp $(date '+%s')" | tee timestamp1.txt
+      run: echo "Timestamp $(date '+%s')" | tee timestamp10.txt
 
     - name: Cache
       uses: actions/cache@v2
       env:
         cache-name: cache-node-modules
       with:
-        path: ./timestamp1.txt
-        key: file
+        path: ./timestamp10.txt
+        key: file2
 
   use:
     runs-on: ubuntu-latest
+    needs: create
     
     steps:
     - name: Cache
@@ -28,8 +29,8 @@ jobs:
       env:
         cache-name: cache-node-modules
       with:
-        path: ./timestamp2.txt
-        key: file
+        path: ./timestamp20.txt
+        key: file2
     
     - name: View File
-      run: cat timestamp2.txt
+      run: cat timestamp20.txt
