@@ -8,16 +8,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Create file
+      run: echo "Timestamp $(date '+%s')" | tee timestamp1.txt
+
     - name: Cache
       uses: actions/cache@v2
       env:
         cache-name: cache-node-modules
       with:
-        path: ./timestamp.txt
+        path: ./timestamp1.txt
         key: file
-
-    - name: Create file
-      run: echo "Timestamp $(date '+%s')" | tee timestamp.txt
 
   use:
     runs-on: ubuntu-latest
@@ -28,8 +28,8 @@ jobs:
       env:
         cache-name: cache-node-modules
       with:
-        path: ./timestamp.txt
+        path: ./timestamp2.txt
         key: file
     
     - name: View File
-      run: cat timestamp.txt
+      run: cat timestamp2.txt
