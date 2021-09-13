@@ -7,17 +7,18 @@ jobs:
   create:
     runs-on: ubuntu-latest
 
-    steps:
-    - name: Create file
-      run: echo "Timestamp $(date '+%s')" | tee timestamp.txt
-
     - name: Cache
       uses: actions/cache@v2
       env:
         cache-name: cache-node-modules
       with:
         path: ./timestamp.txt
-        key: new
+        key: abc
+
+    steps:
+    - name: Create file
+      run: echo "Timestamp $(date '+%s')" | tee timestamp.txt
+
 
   use:
     runs-on: ubuntu-latest
@@ -31,8 +32,8 @@ jobs:
       env:
         cache-name: cache-node-modules
       with:
-        path: ./timestamp-new.txt
-        key: new
+        path: ./timestamp200.txt
+        key: abc
 
     - run: ls -l
 
