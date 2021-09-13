@@ -68,5 +68,5 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Deploy PRD"
+    - name: Deploy PRD
       run:  echo "Deploying to PRD"     
