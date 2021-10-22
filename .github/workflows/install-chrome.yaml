@@ -8,10 +8,10 @@ on:
       - chrome
 
 jobs:
-  docker:
+  chrome:
     runs-on: ubuntu-latest
 
-  steps:
+    steps:
     - uses: browser-actions/setup-chrome@latest
     - run: chrome --version
         
