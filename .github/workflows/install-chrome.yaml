@@ -11,6 +11,9 @@ jobs:
   chrome:
     runs-on: ubuntu-latest
 
+    container:
+      image: node:14-stretch
+
     steps:
     - uses: browser-actions/setup-chrome@latest
     - run: chrome --version
