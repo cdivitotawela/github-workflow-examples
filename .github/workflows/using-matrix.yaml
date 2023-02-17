@@ -9,6 +9,8 @@ jobs:
       matrix:
         region: ['us-east-1']
         module: ['ecr-config']
+        include:
+          - module: 'ecr-iam'
     runs-on: ubuntu-latest
     steps:
     - run: echo ${{ matrix.region }} ${{ matrix.module }}
