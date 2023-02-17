@@ -7,7 +7,7 @@ jobs:
   matrix:
     strategy:
       matrix:
-        region: ['us-east-1']
+        region: ['us-east-1','eu-west-3']
         module: ['ecr-config','ecr-repository']
         include:
           - module: 'ecr-iam'
