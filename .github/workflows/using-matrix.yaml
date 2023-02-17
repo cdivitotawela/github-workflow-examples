@@ -1,0 +1,14 @@
+name: using-matrix
+
+on:
+  workflow_dispatch:
+
+jobs:
+  matrix:
+    strategy:
+      matrix:
+        region: ['us-east-1']
+        module: ['ecr-config']
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo ${{ matrix.region }} ${{ matrix.module }}
