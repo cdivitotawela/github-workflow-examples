@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  matrix:
+  setup:
     strategy:
       matrix:
         region: ['us-east-1','eu-west-3']
@@ -14,4 +14,17 @@ jobs:
             region: 'us-east-1'
     runs-on: ubuntu-latest
     steps:
-    - run: echo ${{ matrix.region }} ${{ matrix.module }}
+    - run: echo setup ${{ matrix.region }} ${{ matrix.module }}
+
+  deploy:
+    needs: ['setup']
+    strategy:
+      matrix:
+        region: ['us-east-1','eu-west-3']
+        module: ['ecr-config','ecr-repository']
+        include:
+          - module: 'ecr-iam'
+            region: 'us-east-1'
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo deploy ${{ matrix.region }} ${{ matrix.module }}
