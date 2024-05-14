@@ -1,0 +1,13 @@
+name: Environments
+
+on:
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    # If environment not available it creates the environment
+    environment: prod
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4

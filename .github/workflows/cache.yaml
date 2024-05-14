@@ -14,7 +14,7 @@ jobs:
 
     # Here cache the files. Key is unique for the run number. Run number same for all jobs in the run
     - name: Cache
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       env:
         cache-name: cache-node-modules
       with:
@@ -32,7 +32,7 @@ jobs:
     
     # Both key and path must match to restore the files
     - name: Cache
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       env:
         cache-name: cache-node-modules
       with:
