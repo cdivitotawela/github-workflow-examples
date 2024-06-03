@@ -1,0 +1,16 @@
+name: calling workflow
+
+description: 
+  This workflow mimic the creation of container image with specific tag and calling another workflow
+  with the tag to run some tests
+
+on:
+  release:
+
+jobs:
+  call:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set the container tag
+        id: generate-image-tag
+        run: echo tag ${{ github.ref }}
