@@ -1,8 +1,5 @@
+#  This workflow mimic the creation of container image with specific tag and calling another workflow with the tag to run some tests
 name: calling workflow
-
-description: 
-  This workflow mimic the creation of container image with specific tag and calling another workflow
-  with the tag to run some tests
 
 on:
   release:
