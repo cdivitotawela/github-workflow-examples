@@ -7,7 +7,7 @@ jobs:
   call:
     runs-on: ubuntu-latest
     outputs:
-      tag=${{ steps.generate-image-tag.outputs.tag }}
+      tag: ${{ steps.generate-image-tag.outputs.tag }}
 
     steps:
       - name: Set the container tag
