@@ -2,12 +2,18 @@
 name: calling workflow
 
 on:
-  release:
+  workflow-dispatch:
 
 jobs:
   call:
     runs-on: ubuntu-latest
+    outputs:
+      tag=${{ steps.generate-image-tag.outputs.tag }}
+
     steps:
       - name: Set the container tag
         id: generate-image-tag
-        run: echo tag ${{ github.ref }}
+        run: echo "tag=1.0.0" >> $GITHUB_OUTPUTS
+      
+      - name: Display output
+        run: echo ${{ steps.generate-image-tag.outputs.tag }}
