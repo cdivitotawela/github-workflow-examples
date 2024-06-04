@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  call:
+  generate-tag:
     runs-on: ubuntu-latest
     outputs:
       tag: ${{ steps.generate-image-tag.outputs.tag }}
@@ -16,3 +16,11 @@ jobs:
       
       - name: Display output
         run: echo ${{ steps.generate-image-tag.outputs.tag }}
+
+  call:
+    uses: cdivitotawela/github-workflow-examples/.github/workflows/called-workflow.yaml
+    with:
+      tag: ${{ needs.generate-tag.outputs.tag }}
+    needs: ["generate-tag"]
+      
+    

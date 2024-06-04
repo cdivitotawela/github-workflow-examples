@@ -1,0 +1,17 @@
+name: called workflow
+
+# https://docs.github.com/en/actions/using-workflows/reusing-workflows
+
+on:
+  workflow_call:
+    inputs:
+      tag:
+        required: true
+        type: string
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Test conatiner
+      run: echo "Run tests for container with tag ${{ inputs.tag }}"     
