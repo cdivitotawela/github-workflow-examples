@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Set the container tag
         id: generate-image-tag
-        run: echo "tag=1.0.0" >> $GITHUB_OUTPUTS
+        run: echo "tag=1.0.0" >> "$GITHUB_OUTPUT"
       
       - name: Display output
         run: echo ${{ steps.generate-image-tag.outputs.tag }}
