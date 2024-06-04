@@ -18,7 +18,7 @@ jobs:
         run: echo ${{ steps.generate-image-tag.outputs.tag }}
 
   call:
-    uses: cdivitotawela/github-workflow-examples/.github/workflows/called-workflow.yaml
+    uses: cdivitotawela/github-workflow-examples/.github/workflows/called-workflow.yaml@main
     with:
       tag: ${{ needs.generate-tag.outputs.tag }}
     needs: ["generate-tag"]
