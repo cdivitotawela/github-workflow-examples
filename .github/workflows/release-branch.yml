@@ -1,4 +1,4 @@
-name: using-cache
+name: conditional-release
 
 on:
   push:
