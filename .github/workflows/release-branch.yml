@@ -18,3 +18,4 @@ jobs:
 
       - if: contains(github.ref, 'refs/heads/release-') || github.ref == 'refs/heads/main'
         run: echo Triggerred
+
