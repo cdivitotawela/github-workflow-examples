@@ -14,7 +14,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - run: echo github.ref=${{ github.ref }}  github.event=${{ github.event }}
+      - run: echo github.ref=${{ github.ref }}  github.event_name=${{ github.event_name }}
 
       - if: contains(github.ref, 'refs/heads/release-') || github.ref == 'refs/heads/main'
         run: echo Triggerred
