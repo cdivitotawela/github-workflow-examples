@@ -1,0 +1,17 @@
+name: using-cache
+
+on:
+  push:
+    branches: ['release']
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - run: echo ${{ github.ref }}
+
+      - if: contains(github.ref, 'refs/heads/release-') || github.ref == 'refs/heads/main'
+        run: echo Triggerred
