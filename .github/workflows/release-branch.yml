@@ -21,5 +21,5 @@ jobs:
 
       - run: |
           echo hello > test.txt
-          sha256 .
+          sha256sum .
 
