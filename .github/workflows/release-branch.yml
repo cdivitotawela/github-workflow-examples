@@ -1,8 +1,7 @@
 name: conditional-release
 
 on:
-  push:
-    branches: ['release-0.8.4']
+  pull_request:
 
 jobs:
   release:
