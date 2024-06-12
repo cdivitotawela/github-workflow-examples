@@ -19,6 +19,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - run: echo ${develop:${{ inputs.tag }}}
+          
+ 
       - name: Vulnerability scanner
         id: trivy
         uses: aquasecurity/trivy-action@0.22.0
