@@ -8,7 +8,7 @@ on:
         required: false
         default: 'develop'      
   schedule:
-    - cron:  '12 23 * * *'
+    - cron:  '13-17 23 * * *'
 
 jobs:
   scan-sarif:
