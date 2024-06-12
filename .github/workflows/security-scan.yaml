@@ -1,4 +1,4 @@
-name: docker-image
+name: security-scan
 
 on:
   workflow_dispatch:
