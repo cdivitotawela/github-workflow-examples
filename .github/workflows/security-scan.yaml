@@ -1,0 +1,30 @@
+name: docker-image
+
+on:
+  workflow_dispatch:
+    inputs:
+      image:
+        description: 'Container image including registry path'
+        required: true
+        default: 'besu'
+      tag:
+        description: 'Container image tag'
+        required: true
+        default: 'develop'      
+
+jobs:
+  dockscaner:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Vulnerability scanner
+        id: trivy
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ inputs.image }}:${{ inputs.tag }}
+          format: table
+          exit-code: 1
+          severity: CRITICAL

@@ -18,3 +18,7 @@ won't be saved. So it use the `github.run_number` in key so that each run new fi
 GitHub environment helps to control the workflow run by making specific secrets available for the environment and adding 
 approval gates. Configure the environment in repository Settings -> Environments with options "Required reviewers", "Wait timer", specify which branches environment applicable, specify environment secrets and variables. Example [.github/workflows/environments.yaml](.github/workflows/environments.yaml)
 
+
+## Container Security Scan
+
+Vulnerability scanning of container images using Trivy tool. Example [.github/workflows/security-scan.yaml](.github/workflows/security-scan.yaml) 
