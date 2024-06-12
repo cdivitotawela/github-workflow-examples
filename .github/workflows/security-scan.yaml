@@ -6,7 +6,7 @@ on:
       image:
         description: 'Container image including registry path'
         required: true
-        default: 'besu'
+        default: 'hyperledger/besu'
       tag:
         description: 'Container image tag'
         required: true
