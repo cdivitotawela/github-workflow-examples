@@ -8,7 +8,7 @@ on:
         required: false
         default: 'develop'      
   schedule:
-    - cron:  '57 22 * * *'
+    - cron:  '12 23 * * *'
 
 jobs:
   scan-sarif:
@@ -22,7 +22,7 @@ jobs:
         id: trivy
         uses: aquasecurity/trivy-action@0.22.0
         with:
-          image-ref: hyperledger/besu:${TAG:develop}
+          image-ref: hyperledger/besu:${TAG:-develop}
           format: sarif
           output: 'trivy-results.sarif'
         env:
