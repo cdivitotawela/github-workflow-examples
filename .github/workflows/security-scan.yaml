@@ -19,7 +19,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - run: echo ${${{ inputs.tag }}:=develop1}
+      - run: echo ${TAG:=develop1}
+        env:
+          TAG: ${{ inputs.tag }}
           
  
       - name: Vulnerability scanner
