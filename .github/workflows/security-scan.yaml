@@ -22,7 +22,7 @@ jobs:
 
       - name: Vulnerability scanner
         id: trivy
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@0.22.0
         with:
           image-ref: ${{ inputs.image }}:${{ inputs.tag }}
           format: sarif
@@ -42,9 +42,11 @@ jobs:
 
       - name: Vulnerability scanner
         id: trivy
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@0.22.0
         with:
           image-ref: ${{ inputs.image }}:${{ inputs.tag }}
-          format: table
-          severity: CRITICAL,HIGH,MEDIUM,LOW
-          output: 'trivy-results.sarif'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH,MEDIUM'
