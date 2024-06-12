@@ -10,6 +10,11 @@ on:
   schedule:
     - cron:  '13-17 23 * * *'
 
+env:
+  DEFAULT_TAG: 'develop'
+  INPUT_TAG: ${{ inputs.tag }}
+
+
 jobs:
   scan-sarif:
     runs-on: ubuntu-latest
@@ -18,15 +23,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
  
+      - run: echo $TAG
+        env:
+          TAG: ${INPUT_TAG:-DEFAULT_TAG}
+
       - name: Vulnerability scanner
         id: trivy
         uses: aquasecurity/trivy-action@0.22.0
         with:
-          image-ref: hyperledger/besu:${TAG:=develop}
+          image-ref: hyperledger/besu:${{ env.TAG }}
           format: sarif
           output: 'trivy-results.sarif'
         env:
-          TAG: ${{ inputs.tag }}
+          TAG: ${INPUT_TAG:-DEFAULT_TAG}
 
       - name: Upload Results
         uses: github/codeql-action/upload-sarif@v3
