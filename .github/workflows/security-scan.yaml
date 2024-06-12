@@ -22,7 +22,7 @@ jobs:
         id: trivy
         uses: aquasecurity/trivy-action@0.22.0
         with:
-          image-ref: hyperledger/besu:${TAG:-develop}
+          image-ref: hyperledger/besu:${TAG:=develop}
           format: sarif
           output: 'trivy-results.sarif'
         env:
