@@ -6,7 +6,7 @@ on:
       tag:
         description: 'Container image tag'
         required: true
-        default: 'develop'      
+        #default: 'develop'      
   schedule:
     # Runs at UTC 8:00am
     - cron:  '0 8 * * *'
@@ -19,7 +19,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - run: echo ${develop:${{ inputs.tag }}}
+      - run: echo ${${{ inputs.tag }}:develop1}
           
  
       - name: Vulnerability scanner
