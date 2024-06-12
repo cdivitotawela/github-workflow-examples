@@ -5,11 +5,10 @@ on:
     inputs:
       tag:
         description: 'Container image tag'
-        required: true
-        #default: 'develop'      
+        required: false
+        default: 'develop'      
   schedule:
-    # Runs at UTC 8:00am
-    - cron:  '0 8 * * *'
+    - cron:  '57 22 * * *'
 
 jobs:
   scan-sarif:
@@ -18,17 +17,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - run: echo ${${{ inputs.tag }}:develop1}
-          
  
       - name: Vulnerability scanner
         id: trivy
         uses: aquasecurity/trivy-action@0.22.0
         with:
-          image-ref: hyperledger/besu:${{ inputs.tag }}
+          image-ref: hyperledger/besu:${TAG:develop}
           format: sarif
           output: 'trivy-results.sarif'
+        env:
+          TAG: ${{ inputs.tag }}
 
       - name: Upload Results
         uses: github/codeql-action/upload-sarif@v3
