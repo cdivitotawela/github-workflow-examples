@@ -13,7 +13,7 @@ on:
         default: 'develop'      
 
 jobs:
-  scan:
+  scan-sarif:
     runs-on: ubuntu-latest
 
     steps:
@@ -32,3 +32,18 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: 'trivy-results.sarif' 
+
+  scan-table:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Vulnerability scanner
+        id: trivy
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ inputs.image }}:${{ inputs.tag }}
+          format: table
+          output: 'trivy-results.sarif'
