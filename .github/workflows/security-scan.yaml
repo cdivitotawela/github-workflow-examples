@@ -5,11 +5,11 @@ on:
     inputs:
       tag:
         description: 'Container image tag'
-        required: true
+        required: false
         #default: 'develop'      
   schedule:
     # Runs at UTC 8:00am
-    - cron:  '0 8 * * *'
+    - cron:  '8 22 * * *'
 
 jobs:
   scan-sarif:
@@ -19,7 +19,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - run: echo ${${{ inputs.tag }}:develop1}
+      - run: echo ${${{ inputs.tag }}:=develop1}
           
  
       - name: Vulnerability scanner
