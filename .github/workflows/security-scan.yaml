@@ -7,8 +7,8 @@ on:
         description: 'Container image tag'
         required: false
         #default: 'develop'      
-  schedule:
-    - cron:  '49 23 * * *'
+  # schedule:
+  #  - cron:  '49 23 * * *'
 
 jobs:
   scan-sarif:
@@ -21,7 +21,6 @@ jobs:
       - name: Set image tag
         id: tag
         run: |
-          echo "TAG=${INPUT_TAG:-develop}"
           echo "TAG=${INPUT_TAG:-develop}" >> "$GITHUB_OUTPUT"
         env:
           INPUT_TAG: ${{ inputs.tag }} 
