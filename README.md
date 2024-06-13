@@ -21,4 +21,6 @@ approval gates. Configure the environment in repository Settings -> Environments
 
 ## Container Security Scan
 
-Vulnerability scanning of container images using Trivy tool. Example [.github/workflows/security-scan.yaml](.github/workflows/security-scan.yaml) 
+Vulnerability scanning of container images using Trivy tool. Example [.github/workflows/security-scan.yaml](.github/workflows/security-scan.yaml). 
+In this workflow actions are pinned to git hash instead of tags. Tags can be moved but when pinned to git hash these are static.
+This improves the security as intruder cannot move the tag to a vulnerability code.
