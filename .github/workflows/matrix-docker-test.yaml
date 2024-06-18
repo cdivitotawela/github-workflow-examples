@@ -36,7 +36,7 @@ jobs:
         run: |
           PLATFORM_OPT=""
           [[ x${{ matrix.combination.platform }} != 'x' ]] && PLATFORM_OPT="--platform ${{ matrix.combination.platform }}"
-          docker run -d --rm $PLATFORM_OPT --name ${{ env.CONTAINER_NAME }} hyperledger/besu:${{ matrix.combination.tag }}
+          docker run -d $PLATFORM_OPT --name ${{ env.CONTAINER_NAME }} hyperledger/besu:${{ matrix.combination.tag }}
 
       - name: Verify besu container
         run: |
@@ -52,6 +52,7 @@ jobs:
           docker stop ${{ env.CONTAINER_NAME }} > /dev/null
           if [[ $success != "true" ]]
           then
+            docker ps -a
             docker logs ${{ env.CONTAINER_NAME }}
             echo "::error Could not find the log message 'Ethereum main loop is up'"
             exit 1
