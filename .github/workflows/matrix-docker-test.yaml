@@ -9,7 +9,7 @@ on:
         default: '24.5.4'
 
 jobs:
-  test:
+  verify:
     strategy:
       matrix:
         combination:
@@ -50,7 +50,7 @@ jobs:
           done
 
           docker rm -f ${{ env.CONTAINER_NAME }} > /dev/null
-          if [[ $success != "true" ]]do
+          if [[ $success != "true" ]]
           then
             echo "Could not find the log message 'Ethereum main loop is up'"
             exit 1
