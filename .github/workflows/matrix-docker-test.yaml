@@ -6,7 +6,7 @@ on:
       tag:
         description: 'Image tag of hyperledger/besu'
         required: true
-        default: 'invalid'
+        default: '24.5.4'
 
 jobs:
   test:
@@ -20,6 +20,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - run: echo "${{ matrix.test.image }} - ${{ matrix.test.runner }}"
+      - run: |
+          docker run -d --rm --name besu hyperledger/besu:${{ inputs.tag }}
+          sleep 20
+          docker logs besu
+          docker stop besu
 
 
