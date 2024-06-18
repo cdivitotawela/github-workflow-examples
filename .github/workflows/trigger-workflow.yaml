@@ -13,4 +13,4 @@ jobs:
       - name: Trigger
         run: gh workflow run matrix-docker-test.yaml
         env:
-          GH_TOKEN: ${{ env.GITHUB_TOKEN }}
+          GH_TOKEN:  ${{ github.token }}
