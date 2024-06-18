@@ -1,0 +1,25 @@
+name: matrix-docker-test
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Image tag of hyperledger/besu'
+        required: true
+        default: 'invalid'
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        test:
+          - image: besu
+            runner: ubuntu-latest
+    runs-on: ${{ matrix.test.runner }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - run: echo "${{ matrix.test.image }} - ${{ matrix.test.runner }}"
+
+
