@@ -34,13 +34,10 @@ jobs:
       
       - name: Start container
         run: |
-          echo "platform=${{ matrix.combination.platform }}"
-          if [[ ${{ matrix.combination.platform != '' }} ]]
-          then
-            docker run -d --rm --platform ${{ matrix.combination.platform }} --name ${{ env.CONTAINER_NAME }} hyperledger/besu:${{ matrix.combination.tag }}
-          else
-            docker run -d --rm --name ${{ env.CONTAINER_NAME }} hyperledger/besu:${{ matrix.combination.tag }}
-          fi 
+          PLATFORM_OPT=""
+          [[ ${{ matrix.combination.platform }} != '' ]] && PLATFORM_OPT="--platform ${{ matrix.combination.platform }}"
+          docker run -d --rm $PLATFORM_OPT --name ${{ env.CONTAINER_NAME }} hyperledger/besu:${{ matrix.combination.tag }}
+
       - name: Verify besu container
         run: |
           success=false
