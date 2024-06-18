@@ -18,7 +18,7 @@ CONTAINER_NAME=${CONTAINER_NAME:-besu}
 VERSION=${VERSION}
 TAG=${TAG}
 
-RETRY=${RETRY:-2}
+RETRY=${RETRY:-10}
 SLEEP=${SLEEP:-5}
 
 # Helper function to throw error

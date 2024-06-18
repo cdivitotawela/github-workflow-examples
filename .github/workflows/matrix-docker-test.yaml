@@ -10,6 +10,7 @@ on:
 
 jobs:
   verify:
+    timeout-minutes: 10
     strategy:
       matrix:
         combination:
