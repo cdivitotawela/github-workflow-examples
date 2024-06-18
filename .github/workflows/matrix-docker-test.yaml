@@ -46,4 +46,4 @@ jobs:
           VERSION: ${{ inputs.version}}
       
       - name: Stop container
-        run: docker stop -f ${{ env.CONTAINER_NAME }}
+        run: docker stop ${{ env.CONTAINER_NAME }}
