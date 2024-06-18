@@ -6,11 +6,15 @@ on:
       version:
         description: 'Besu version'
         required: true
-        default: '24.6.0'
+      verify-latest-version:
+        description: 'Whether to check the version of the latest docker image'
+        required: false
+        type: boolean
+        default: true
 
 jobs:
   verify:
-    timeout-minutes: 10
+    timeout-minutes: 4
     strategy:
       matrix:
         combination:

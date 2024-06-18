@@ -11,6 +11,6 @@ jobs:
         uses: actions/checkout@v4
       
       - name: Trigger
-        run: gh workflow run matrix-docker-test.yaml
+        run: echo '{"version":"24.6.0"}' | gh workflow run matrix-docker-test.yaml --json
         env:
           GH_TOKEN:  ${{ github.token }}
