@@ -12,11 +12,20 @@ jobs:
   test:
     strategy:
       matrix:
-        tag:
-          - ${{ inputs.tag }}
-          - ${{ inputs.tag }}-arm64
-          - latest
-    runs-on: ubuntu-latest
+        combination:
+          - tag: ${{ inputs.tag }}
+            platform: ''
+            runner: ubuntu-latest
+          - tag: ${{ inputs.tag }}-arm64
+            platform: 'linux/arm64'
+            runner: ubuntu-latest
+          - tag: latest
+            platform: ''
+            runner: ubuntu-latest
+          - tag: ${{ inputs.tag }}-amd64
+            platform: ''
+            runner: ubuntu-latest
+    runs-on: ${{ matrix.combination.runner }}
     env:
       CONTAINER_NAME: besu-check
     steps:
@@ -25,8 +34,12 @@ jobs:
       
       - name: Start container
         run: |
-          docker run -d --rm --name ${{ env.CONTAINER_NAME }} hyperledger/besu:${{ matrix.tag }}
- 
+          if [[ ${{ matrix.combination.platform != '' }}]]
+          then
+            docker run -d --rm --platform ${{ matrix.combination.platform }} --name ${{ env.CONTAINER_NAME }} hyperledger/besu:${{ matrix.combination.tag }}
+          else
+            docker run -d --rm --name ${{ env.CONTAINER_NAME }} hyperledger/besu:${{ matrix.combination.tag }}
+          fi 
       - name: Verify besu container
         run: |
           success=false
