@@ -36,7 +36,7 @@ jobs:
         run: |
           PLATFORM_OPT=""
           [[ x${{ matrix.combination.platform }} != 'x' ]] && PLATFORM_OPT="--platform ${{ matrix.combination.platform }}"
-          docker run -it $PLATFORM_OPT --name ${{ env.CONTAINER_NAME }} hyperledger/besu:${{ matrix.combination.tag }}
+          docker run $PLATFORM_OPT --name ${{ env.CONTAINER_NAME }} hyperledger/besu:${{ matrix.combination.tag }}
 
       - name: Verify besu container
         run: |
