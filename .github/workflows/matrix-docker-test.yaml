@@ -56,10 +56,8 @@ jobs:
             sleep $SLEEP
           done
 
-          
           if [[ $success != "true" ]]
           then
-            docker ps -a
             docker logs ${{ env.CONTAINER_NAME }}
             echo "::error Could not find the log message 'Ethereum main loop is up'"
             exit 1
@@ -70,6 +68,7 @@ jobs:
             version_in_log=$(docker logs ${{ env.CONTAINER_NAME }} | grep "#" | grep "Besu version" | cut -d " " -f 4 | sed 's/\s//g')
             echo "Extracted version [$version_in_log]"
             if [[ $version_in_log != ${{ inputs.tag }} ]]
+            then
               echo "::error version [$version_in_log] extracted from container logs does not match the expected version"
             fi
           fi
