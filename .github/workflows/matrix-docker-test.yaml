@@ -34,6 +34,7 @@ jobs:
       
       - name: Start container
         run: |
+          echo "platform=${{ matrix.combination.platform }}"
           if [[ ${{ matrix.combination.platform != '' }} ]]
           then
             docker run -d --rm --platform ${{ matrix.combination.platform }} --name ${{ env.CONTAINER_NAME }} hyperledger/besu:${{ matrix.combination.tag }}
