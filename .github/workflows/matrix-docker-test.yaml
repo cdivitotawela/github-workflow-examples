@@ -6,7 +6,7 @@ on:
       tag:
         description: 'Image tag of hyperledger/besu'
         required: true
-        default: '24.5.4'
+        default: '24.6.0'
 
 jobs:
   verify:
@@ -69,7 +69,7 @@ jobs:
             echo "Extracted version [$version_in_log]"
             if [[ $version_in_log != ${{ inputs.tag }} ]]
             then
-              echo "::error version [$version_in_log] extracted from container logs does not match the expected version"
+              echo "::error version [$version_in_log] extracted from container logs does not match the expected version [${{ inputs.tag }}]"
             fi
           fi
 
