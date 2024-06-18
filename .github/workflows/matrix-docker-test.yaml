@@ -40,6 +40,13 @@ jobs:
 
       - name: Verify besu container
         run: |
+          run_state=$(docker inspect --type=container -f={{.State.Status}} ${{ env.CONTAINER_NAME }})
+          if [[ "x$run_state" != "xrunning" ]]
+          then
+            echo "::error container in not running"
+            exit 1
+          fi
+
           success=false
           while [[ $success != "true" && $RETRY -gt 0 ]]
           do
@@ -49,7 +56,7 @@ jobs:
             sleep $SLEEP
           done
 
-          docker stop ${{ env.CONTAINER_NAME }} > /dev/null
+          
           if [[ $success != "true" ]]
           then
             docker ps -a
@@ -57,6 +64,17 @@ jobs:
             echo "::error Could not find the log message 'Ethereum main loop is up'"
             exit 1
           fi
+
+          if [[ ${{ matrix.combination.tag }} == "latest" ]]
+          then
+            version_in_log=$(docker logs ${{ env.CONTAINER_NAME }} | grep "#" | grep "Besu version" | cut -d " " -f 4 | sed 's/\s//g')
+            echo "Extracted version [$version_in_log]"
+            if [[ $version_in_log != ${{ inputs.tag }} ]]
+              echo "::error version [$version_in_log] extracted from container logs does not match the expected version"
+            fi
+          fi
+
+          docker stop ${{ env.CONTAINER_NAME }} > /dev/null
           exit 0
         env:
           SLEEP: 5
