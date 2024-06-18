@@ -13,18 +13,18 @@ jobs:
     strategy:
       matrix:
         combination:
-          # - tag: ${{ inputs.tag }}
-          #   platform: ''
-          #   runner: ubuntu-latest
-          - tag: ${{ inputs.tag }}-arm64
-            platform: 'linux/arm64'
+          - tag: ${{ inputs.tag }}
+            platform: ''
             runner: ubuntu-latest
-          # - tag: latest
-          #   platform: ''
-          #   runner: ubuntu-latest
-          # - tag: ${{ inputs.tag }}-amd64
-          #   platform: ''
-          #   runner: ubuntu-latest
+          - tag: ${{ inputs.tag }}-amd64
+            platform: 'linux/amd64'
+            runner: ubuntu-latest
+          - tag: latest
+            platform: ''
+            runner: ubuntu-latest
+          - tag: ${{ inputs.tag }}-amd64
+            platform: ''
+            runner: ubuntu-latest
     runs-on: ${{ matrix.combination.runner }}
     env:
       CONTAINER_NAME: besu-check
@@ -36,7 +36,7 @@ jobs:
         run: |
           PLATFORM_OPT=""
           [[ x${{ matrix.combination.platform }} != 'x' ]] && PLATFORM_OPT="--platform ${{ matrix.combination.platform }}"
-          docker run $PLATFORM_OPT --name ${{ env.CONTAINER_NAME }} hyperledger/besu:${{ matrix.combination.tag }}
+          docker run -d $PLATFORM_OPT --name ${{ env.CONTAINER_NAME }} hyperledger/besu:${{ matrix.combination.tag }}
 
       - name: Verify besu container
         run: |
