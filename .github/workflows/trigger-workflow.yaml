@@ -1,0 +1,16 @@
+name: matrix-docker-test
+
+on:
+  push:
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Trigger
+        run: gh workflow run matrix-docker-test.yaml
+        env:
+          GH_TOKEN: ${{ env.GITHUB_TOKEN }}
