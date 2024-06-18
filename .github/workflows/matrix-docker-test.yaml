@@ -13,29 +13,31 @@ jobs:
     strategy:
       matrix:
         test:
-          - image: besu-check
+          - image: besu
             runner: ubuntu-latest
     runs-on: ${{ matrix.test.runner }}
+    env:
+      CONTAINER_NAME: besu-check
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       
       - name: Start container
         run: |
-          docker run -d --rm --name besu hyperledger/besu:${{ inputs.tag }}
+          docker run -d --rm --name ${{ env.CONTAINER_NAME }} hyperledger/besu:${{ inputs.tag }}
  
       - name: Verify besu container
         run: |
           success=false
           while [[ $success != "true" && $RETRY -gt 0 ]]
           do
-            docker logs besu-check | grep -q "Ethereum main loop is up" && success=true
+            docker logs ${{ env.CONTAINER_NAME }} | grep -q "Ethereum main loop is up" && success=true
             RETRY=$(expr $RETRY - 1)
             echo "Waiting for the container to start. Remaining retries $RETRY ..."
             sleep $SLEEP
           done
 
-          docker rm -f besu-check > /dev/null
+          docker rm -f ${{ env.CONTAINER_NAME }} > /dev/null
           if [[ $success != "true" ]]
           then
             echo "Could not find the log message 'Ethereum main loop is up'"
