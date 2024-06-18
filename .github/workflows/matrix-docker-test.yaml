@@ -49,10 +49,11 @@ jobs:
             sleep $SLEEP
           done
 
-          docker rm -f ${{ env.CONTAINER_NAME }} > /dev/null
+          docker stop ${{ env.CONTAINER_NAME }} > /dev/null
           if [[ $success != "true" ]]
           then
-            echo "Could not find the log message 'Ethereum main loop is up'"
+            docker logs ${{ env.CONTAINER_NAME }}
+            echo "::error Could not find the log message 'Ethereum main loop is up'"
             exit 1
           fi
           exit 0
