@@ -12,12 +12,11 @@ jobs:
   test:
     strategy:
       matrix:
-        test:
-          - image: besu
-            runner: ubuntu-latest
-          - image: besu-arm64
-            runner: ubuntu-latest
-    runs-on: ${{ matrix.test.runner }}
+        tag:
+          - ${{ inputs.tag }}
+          - ${{ inputs.tag }}-arm64
+          - latest
+    runs-on: ubuntu-latest
     env:
       CONTAINER_NAME: besu-check
     steps:
@@ -26,7 +25,7 @@ jobs:
       
       - name: Start container
         run: |
-          docker run -d --rm --name ${{ env.CONTAINER_NAME }} hyperledger/${{ matrix.test.image }}:${{ inputs.tag }}
+          docker run -d --rm --name ${{ env.CONTAINER_NAME }} hyperledger/besu:${{ matrix.tag }}
  
       - name: Verify besu container
         run: |
@@ -40,7 +39,7 @@ jobs:
           done
 
           docker rm -f ${{ env.CONTAINER_NAME }} > /dev/null
-          if [[ $success != "true" ]]
+          if [[ $success != "true" ]]do
           then
             echo "Could not find the log message 'Ethereum main loop is up'"
             exit 1
