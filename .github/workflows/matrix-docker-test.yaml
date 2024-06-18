@@ -26,7 +26,7 @@ jobs:
       
       - name: Start container
         run: |
-          docker run -d --rm --name ${{ env.CONTAINER_NAME }} hyperledger/besu:${{ inputs.tag }}
+          docker run -d --rm --name ${{ env.CONTAINER_NAME }} hyperledger/${{ matrix.test.image }}:${{ inputs.tag }}
  
       - name: Verify besu container
         run: |
