@@ -24,8 +24,9 @@ jobs:
         run: echo "${{ github.ref }}" | sed 's|^refs/tags/\(.*\)$|TAGA=\1|g' >> $GITHUB_ENV
 
       - name: Release tag - method 2
-        run: echo "${GITHUB_REF}"
+        run: echo "TAGB=${GITHUB_REF#refs/tags/*}" >> $GITHUB_ENV
 
       - name: Release tag - display
         run: |
-          echo "Method 1 - ${{ env.TAGA }}"      
+          echo "Method 1 - ${{ env.TAGA }}"
+          echo "Method 2 - ${{ env.TAGB }}"    
