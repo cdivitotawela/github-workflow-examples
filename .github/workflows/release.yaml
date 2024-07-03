@@ -5,9 +5,6 @@ on:
   # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#release
   release:
     types: [published]
-  push:
-    branch: run-on-release
-
 
 jobs:
   release:
@@ -22,3 +19,10 @@ jobs:
       - name: Run on release
         if: ${{ github.event_name == 'release' }}
         run: echo "Run this step on release"
+      
+      - name: Release tag - method 1
+        run: echo "${{ github.ref }}" | sed 's|^refs/tags/\(.*)$|TAGA=\1|g' >> $GITHUB_ENV
+
+      - name: Release tag - disply
+        run: |
+          echo "Method 1 - ${{ env.TAGA }}"      
