@@ -21,8 +21,11 @@ jobs:
         run: echo "Run this step on release"
       
       - name: Release tag - method 1
-        run: echo "${{ github.ref }}" | sed 's|^refs/tags/\(.*)$|TAGA=\1|g' >> $GITHUB_ENV
+        run: echo "${{ github.ref }}" | sed 's|^refs/tags/\(.*\)$|TAGA=\1|g' >> $GITHUB_ENV
 
-      - name: Release tag - disply
+      - name: Release tag - method 2
+        run: echo "${GITHUB_REF}"
+
+      - name: Release tag - display
         run: |
           echo "Method 1 - ${{ env.TAGA }}"      
