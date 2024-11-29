@@ -1,4 +1,4 @@
-name: Dynamic Job Generation
+name: dynamic job gneration
 
 on:
   pull_request:
