@@ -1,9 +1,9 @@
-name: Dynamic Job Generation
+name: dynamic job gneration
 
 on:
   pull_request:
     paths:
-      - dynamic-jobs/*
+      - dynamic-jobs/**
 
 jobs:
   changes:
@@ -20,8 +20,6 @@ jobs:
         uses: tj-actions/changed-files@v45
         id: changed-files
         with:
-          base_sha: ${{ github.event.pull_request.base.sha }}
-          since_last_remote_commit: true
           files: |
             dynamic-jobs/**
       
