@@ -1,0 +1,58 @@
+name: Dynamic Job Generation
+
+on:
+  pull_request:
+    paths:
+      - dynamic-jobs/*
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs: 
+      folders: ${{ steps.folder-list.outputs.folders }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      # https://github.com/tj-actions/changed-files
+      # This action support number of output options
+      - name: Changed file list
+        uses: tj-actions/changed-files@v45
+        id: changed-files
+        with:
+          base_sha: ${{ github.event.pull_request.base.sha }}
+          since_last_remote_commit: true
+          files: |
+            dynamic-jobs/**
+      
+      - name: Changed files
+        id: folder-list
+        env:
+          ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+        run: |
+          echo "--- list of changed files ---"
+          echo "${{ env.ALL_CHANGED_FILES }}"
+          
+          # We want the top level folder list as json string
+          # Json list is required to input to the matrix. Generate a json list and use that to
+          # get a list object in next job.
+          FOLDERS=$(echo "${{ env.ALL_CHANGED_FILES }}" | sed 's| |\n|g' | sed 's|^dynamic-jobs/\([^\/]*\).*|\1|g' | sort | uniq | jq -R -s -c 'split("\n")[:-1]')
+          echo $FOLDERS
+
+          # Set the job output. We have defined a job output in the job changes with matching key `folders`
+          echo "folders=$FOLDERS" >> "$GITHUB_OUTPUT"
+
+  execution:
+    name: "Execution [${{ matrix.folder }}]"
+    needs: [changes]
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: 
+        folder: ${{ fromJSON(needs.changes.outputs.folders) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Execute
+        run: dynamic-jobs/${{ matrix.folder }}/runner.sh
