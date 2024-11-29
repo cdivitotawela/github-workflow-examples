@@ -24,3 +24,9 @@ approval gates. Configure the environment in repository Settings -> Environments
 Vulnerability scanning of container images using Trivy tool. Example [.github/workflows/security-scan.yaml](.github/workflows/security-scan.yaml). 
 In this workflow actions are pinned to git hash instead of tags. Tags can be moved but when pinned to git hash these are static.
 This improves the security as intruder cannot move the tag to a vulnerability code.
+
+
+## Generate Dynamic Jobs Based on File Changes
+
+Sometimes it is essential to run jobs based on the files changed. Example [.github/workflows/dynamic-jobs.yaml](.github/workflows/dynamic-jobs.yaml)
+runs create jobs and runs dynamically based on the changes to the folders.
