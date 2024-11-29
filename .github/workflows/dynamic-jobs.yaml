@@ -3,7 +3,7 @@ name: Dynamic Job Generation
 on:
   pull_request:
     paths:
-      - dynamic-jobs/*
+      - dynamic-jobs/**
 
 jobs:
   changes:
